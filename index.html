@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flores Amarillas 🌼</title>
-<meta property="og:title" content="Tengo un regalo para vos 🌼">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para Karo 🌼</title>
+<meta property="og:title" content="Karo, tengo un regalo para vos 🌼">
 <meta property="og:description" content="Abrilo 💛">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,7 @@
   * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   html, body { height:100%; overflow:hidden; }
   body {
+    height:100vh; height:100dvh;
     font-family: 'Quicksand', system-ui, sans-serif;
     background: linear-gradient(180deg, #8fd3f4 0%, #d4f1ff 55%, #fff7d6 100%);
     color:#4a3500;
@@ -25,14 +26,7 @@
   .pasto { position:fixed; bottom:0; left:0; right:0; height:9vh;
     background:linear-gradient(180deg, #7cc95a, #4f9e3a); border-radius:50% 50% 0 0 / 26px 26px 0 0; }
 
-  /* ---------- Pantalla inicial ---------- */
-  .inicio { position:fixed; inset:0; z-index:10; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:26px; padding:0 16px; text-align:center;
-    transition:opacity .6s, transform .6s; }
-  .inicio.oculto { opacity:0; transform:scale(.8); pointer-events:none; }
-  .inicio h1 { font-size:clamp(1.9rem, 7vw, 3rem); font-family:'Dancing Script', cursive; font-weight:700; }
-  .regalo { font-size:4rem; animation:saltar 1.4s ease-in-out infinite; }
-  @keyframes saltar { 0%,100%{transform:translateY(0) rotate(0)} 30%{transform:translateY(-14px) rotate(-6deg)} 60%{transform:translateY(0) rotate(5deg)} }
+  /* ---------- Botones ---------- */
   button {
     font-family:inherit; font-size:clamp(1.05rem, 4.5vw, 1.3rem); font-weight:700;
     padding:16px 30px; border:none; border-radius:999px; cursor:pointer; color:#4a3500;
@@ -41,50 +35,89 @@
   }
   button:active { transform:translateY(4px); box-shadow:0 2px 0 #c98400; }
   button small { display:block; font-size:.65em; font-weight:500; opacity:.85; margin-top:2px; }
-
-  /* ---------- Escena ---------- */
-  .frase { position:fixed; top:0; left:0; right:0; z-index:8; text-align:center; padding:4vh 18px 0;
-    opacity:0; transform:translateY(-15px); transition:opacity 1.2s, transform 1.2s; pointer-events:none; }
-  .frase.ver { opacity:1; transform:none; }
-  .frase h2 { font-size:clamp(1.5rem, 6.5vw, 2.5rem); font-family:'Dancing Script', cursive; font-weight:700;
-    color:#5a3f00; text-shadow:0 2px 12px rgba(255,255,255,.95); line-height:1.3; }
-  .frase p { margin-top:10px; font-size:clamp(1.6rem, 7.5vw, 2.6rem); font-family:'Quicksand', system-ui, sans-serif;
-    font-weight:500; color:#5a3f00; letter-spacing:.3px; }
-  .botones { position:fixed; left:50%; bottom:14vh; transform:translateX(-50%); z-index:7;
-    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-    opacity:0; transition:opacity 1.2s, transform 1.2s; pointer-events:none; }
-  .botones.ver { opacity:1; transform:translateX(-50%); }
-  .otra { pointer-events:auto; font-size:.9rem; padding:9px 18px; }
+  .otra { font-size:.9rem; padding:9px 18px; }
   .cancion { color:#fff; background:linear-gradient(135deg, #ffa040, #ff7a00);
     box-shadow:0 5px 0 #c25b00, 0 8px 20px rgba(255,122,0,.4); animation:pulso 1.8s ease-in-out infinite; }
   .cancion:active { box-shadow:0 2px 0 #c25b00; }
   @keyframes pulso { 50% { transform:scale(1.06); } }
+  .lila { color:#fff; background:linear-gradient(135deg, #9b86ff, var(--violeta));
+    box-shadow:0 5px 0 #5540d1, 0 8px 20px rgba(123,97,255,.4); }
+  .lila:active { box-shadow:0 2px 0 #5540d1; }
+  .diferido { opacity:0; pointer-events:none; transition:opacity .8s; }
+  .diferido.ver { opacity:1; pointer-events:auto; }
 
-  /* ventana del video */
-  .hoja-video { position:fixed; inset:0; z-index:20; display:flex; align-items:center; justify-content:center;
-    padding:16px; background:rgba(40,25,70,.45); opacity:0; pointer-events:none; transition:opacity .4s; }
-  .hoja-video.abierta { opacity:1; pointer-events:auto; }
-  .tarjeta { width:min(100%, 560px); background:#f6f0ff; border-radius:20px; overflow:hidden;
-    box-shadow:0 20px 50px rgba(60,30,120,.4); transform:translateY(40px) scale(.95); transition:transform .4s; }
-  .hoja-video.abierta .tarjeta { transform:none; }
-  .cabecera { display:flex; align-items:center; justify-content:flex-end; padding:10px 12px;
-    font-style:italic; font-weight:700; color:#5540d1; }
-  .cerrar { padding:6px 12px; font-size:1rem; color:#fff; background:#7b61ff; box-shadow:none; border-radius:999px; }
-  .video { position:relative; aspect-ratio:16 / 9; background:#000; }
-  .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  /* ---------- Pantallas ---------- */
+  .pantalla { position:fixed; top:0; left:0; width:100%; height:100vh; height:100dvh; z-index:5; overflow:hidden;
+    opacity:0; visibility:hidden; transform:translateY(24px); pointer-events:none;
+    transition:opacity .6s, transform .6s, visibility 0s .6s; }
+  .pantalla.activa { opacity:1; visibility:visible; transform:none; pointer-events:auto;
+    transition:opacity .6s, transform .6s, visibility 0s; }
+  .titulo { font-family:'Dancing Script', cursive; font-weight:700; color:#5a3f00; line-height:1.2;
+    text-shadow:0 2px 12px rgba(255,255,255,.95); }
 
-  .firma { position:fixed; left:0; right:0; bottom:0; z-index:9; text-align:center;
-    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-    background:linear-gradient(180deg, rgba(79,158,58,0), rgba(46,110,34,.85) 45%);
-    color:#fffbe6; opacity:0; transition:opacity 1.2s .6s; pointer-events:none; }
-  .firma.ver { opacity:1; }
-  .firma p { font-size:clamp(.9rem, 3.7vw, 1.1rem); font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,.35); }
-  .firma span { display:block; margin-top:3px; font-family:'Quicksand', system-ui, sans-serif; font-size:.8rem;
-    letter-spacing:1px; font-weight:700; color:#f8e48d; }
+  /* ---------- 1 · Portada ---------- */
+  #p1 { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
+    padding:0 16px 9vh; text-align:center; }
+  #p1 h1 { font-size:clamp(3.2rem, 17vw, 5.5rem); }
+  #p1 .sub { font-family:'Dancing Script', cursive; font-weight:600; font-size:clamp(1.3rem, 6vw, 1.9rem);
+    color:#5a3f00; margin-top:-10px; text-shadow:0 2px 12px rgba(255,255,255,.95); }
+  .regalo { font-size:4rem; animation:saltar 1.4s ease-in-out infinite; }
+  @keyframes saltar { 0%,100%{transform:translateY(0) rotate(0)} 30%{transform:translateY(-14px) rotate(-6deg)} 60%{transform:translateY(0) rotate(5deg)} }
 
-  .ramo { --H:min(58vh, 580px); position:fixed; left:50%; bottom:8vh; z-index:5;
-    width:min(96vw, 470px); height:var(--H); transform:translateX(-50%); display:none; }
-  .ramo.ver { display:block; }
+  /* ---------- 2 · Sobre y carta ---------- */
+  .p2-sobre, .p2-carta { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; padding:16px 16px 9vh; text-align:center; }
+  .p2-sobre { gap:26px; transition:opacity .5s; }
+  .p2-sobre.fuera { opacity:0; pointer-events:none; }
+  .p2-sobre .txt { transition:opacity .4s; }
+  .p2-sobre.abriendo .txt { opacity:0; }
+  #p2 h2 { font-size:clamp(2.1rem, 9.5vw, 3rem); }
+  .hint { font-size:.95rem; font-weight:600; color:#5a3f00; opacity:.85; }
+
+  .sobre-wrap { cursor:pointer; animation:flotar 3s ease-in-out infinite; outline:none; }
+  .sobre-wrap.quieto { animation-play-state:paused; cursor:default; }
+  @keyframes flotar { 50% { transform:translateY(-12px); } }
+  .sobre { --sw:min(78vw, 320px); position:relative; width:var(--sw); height:calc(var(--sw) * 2 / 3);
+    perspective:900px; filter:drop-shadow(0 12px 14px rgba(90,63,0,.3)); }
+  .sobre > * { position:absolute; }
+  .s-fondo, .s-frente { inset:0; width:100%; height:100%; border-radius:8px; }
+  .s-fondo { z-index:0; }
+  .s-frente { z-index:3; }
+  .solapa { top:0; left:0; width:100%; height:57.5%; z-index:4; transform-origin:top center;
+    transition:transform .6s ease-in-out, z-index 0s .3s; }
+  .solapa svg { display:block; width:100%; height:100%; }
+  .sobre.abierto .solapa { transform:rotateX(-180deg); z-index:1; }
+  .sello { z-index:5; left:50%; top:57.5%; width:16%; transform:translate(-50%, -50%);
+    transition:opacity .3s, transform .3s; }
+  .sello svg { display:block; width:100%; }
+  .sobre.abierto .sello { opacity:0; transform:translate(-50%, -50%) scale(1.5); }
+  .carta-mini { z-index:2; left:6%; bottom:4%; width:88%; height:84%; border-radius:4px; background-color:#fffdf6;
+    background-image:repeating-linear-gradient(transparent 0 13px, rgba(123,97,255,.16) 13px 14px);
+    box-shadow:0 0 0 1px rgba(123,97,255,.2); transition:transform .8s cubic-bezier(.3,.8,.3,1); }
+  .sobre.sale .carta-mini { transform:translateY(-40%); }
+
+  .p2-carta { gap:18px; pointer-events:none; }
+  .carta-g { width:min(88vw, 400px); max-height:70vh; max-height:70dvh; overflow-y:auto; text-align:left;
+    padding:22px 22px 18px; border-radius:6px; color:#4a3500; opacity:0; visibility:hidden;
+    background-color:#fffdf6; background-attachment:local;
+    background-image:repeating-linear-gradient(transparent 0 27px, rgba(123,97,255,.14) 27px 28px);
+    box-shadow:0 18px 40px rgba(60,30,120,.35), 0 0 0 1px rgba(123,97,255,.18); }
+  .carta-g h3 { font-family:'Dancing Script', cursive; font-weight:700; font-size:2rem; line-height:56px; color:#5540d1; }
+  .carta-g p { font-size:1rem; font-weight:500; line-height:28px; margin-bottom:14px; }
+  .carta-g .fir { font-family:'Dancing Script', cursive; font-weight:700; font-size:1.7rem; color:#5540d1;
+    text-align:right; line-height:44px; margin:6px 0 0; }
+  .p2-carta button { pointer-events:none; }
+  .p2-carta button.ver { pointer-events:auto; }
+
+  /* ---------- 3 · Ramo ---------- */
+  .p3-titulo { position:absolute; top:0; left:0; right:0; z-index:8; text-align:center; padding:4vh 18px 0;
+    pointer-events:none; }
+  .p3-titulo h2 { font-size:clamp(1.7rem, 7.5vw, 2.7rem); }
+  .p3-pie { position:absolute; left:0; right:0; bottom:calc(2vh + env(safe-area-inset-bottom)); z-index:8;
+    display:flex; justify-content:center; }
+
+  .ramo { --H:min(54vh, 560px); --H:min(54dvh, 560px); position:absolute; left:50%; bottom:13.5vh; bottom:13.5dvh;
+    width:min(96vw, 470px); height:var(--H); transform:translateX(-50%); }
 
   .papel-atras, .papel-frente, .mono { position:absolute; left:50%; transform:translateX(-50%); }
   .papel-atras { bottom:18%; width:92%; height:58%; z-index:0; opacity:0; animation:aparecer .8s ease-out forwards; }
@@ -117,11 +150,79 @@
   .cabeza svg { width:100%; height:100%; display:block; transform:rotate(var(--g)); }
   @keyframes abrir { to{transform:scale(1) rotate(0)} }
 
-  /* pétalos que caen */
+  /* ---------- 4 · Final con foto ---------- */
+  #p4 { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+    padding:16px 16px 88px; text-align:center; }
+  .polaroid { --pw:min(70vw, 300px, 36dvh); position:relative; width:var(--pw); flex:none;
+    padding:4.5% 4.5% 0; background:#fff; border-radius:3px; transform:rotate(-3deg);
+    box-shadow:0 14px 30px rgba(60,40,0,.3), 0 2px 6px rgba(0,0,0,.15); }
+  .pantalla.activa .polaroid { animation:caePolaroid 1.3s cubic-bezier(.3,.9,.4,1) both; }
+  @keyframes caePolaroid {
+    0%   { transform:translateY(-110vh) rotate(-35deg); opacity:0; }
+    15%  { opacity:1; }
+    62%  { transform:translateY(14px) rotate(2deg); }
+    82%  { transform:translateY(-6px) rotate(-4deg); }
+    100% { transform:translateY(0) rotate(-3deg); opacity:1; } }
+  .foto { position:relative; width:100%; aspect-ratio:4 / 5; overflow:hidden; background:#e9e2ff; }
+  .foto img { display:block; width:100%; height:100%; object-fit:cover; }
+  .foto .ph { position:absolute; inset:0; display:none; align-items:center; justify-content:center;
+    background:#e9e2ff; color:#6a4ff0; font-weight:700; font-size:1.1rem; }
+  .foto.sin img { display:none; }
+  .foto.sin .ph { display:flex; }
+  .pie-polaroid { min-height:calc(var(--pw) * .22); display:flex; align-items:center; justify-content:center;
+    font-family:'Dancing Script', cursive; font-weight:700; font-size:clamp(1.6rem, 7vw, 2.1rem); color:#5a3f00; }
+  .florcita { position:absolute; width:calc(var(--pw) * .17); height:calc(var(--pw) * .17); z-index:2;
+    filter:drop-shadow(0 2px 3px rgba(120,70,0,.35)); }
+  .florcita svg { width:100%; height:100%; display:block; }
+  .florcita.a { top:-5%; left:-6%; transform:rotate(-15deg); }
+  .florcita.b { top:-4%; right:-5%; transform:rotate(25deg); }
+  .florcita.c { bottom:9%; right:-6%; transform:rotate(60deg); }
+  #p4 .frase { font-family:'Dancing Script', cursive; font-weight:700; font-size:clamp(1.4rem, 6vw, 2rem);
+    line-height:1.3; color:#5a3f00; max-width:22em; text-shadow:0 2px 12px rgba(255,255,255,.95); }
+  .botones { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .firma { position:absolute; left:0; right:0; bottom:0; text-align:center;
+    padding:22px 16px calc(10px + env(safe-area-inset-bottom));
+    background:linear-gradient(180deg, rgba(79,158,58,0), rgba(46,110,34,.85) 45%); color:#fffbe6; pointer-events:none; }
+  .firma p { font-size:clamp(.9rem, 3.7vw, 1.1rem); font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,.35); }
+  .firma span { display:block; margin-top:3px; font-size:.8rem; letter-spacing:1px; font-weight:700; color:#f8e48d; }
+
+  /* ---------- ventana del video ---------- */
+  .hoja-video { position:fixed; inset:0; z-index:20; display:flex; align-items:center; justify-content:center;
+    padding:16px; background:rgba(40,25,70,.45); opacity:0; pointer-events:none; transition:opacity .4s; }
+  .hoja-video.abierta { opacity:1; pointer-events:auto; }
+  .tarjeta { width:min(100%, 560px); background:#f6f0ff; border-radius:20px; overflow:hidden;
+    box-shadow:0 20px 50px rgba(60,30,120,.4); transform:translateY(40px) scale(.95); transition:transform .4s; }
+  .hoja-video.abierta .tarjeta { transform:none; }
+  .cabecera { display:flex; align-items:center; justify-content:flex-end; padding:10px 12px;
+    font-style:italic; font-weight:700; color:#5540d1; }
+  .cerrar { padding:6px 12px; font-size:1rem; color:#fff; background:#7b61ff; box-shadow:none; border-radius:999px; }
+  .video { position:relative; aspect-ratio:16 / 9; background:#000; }
+  .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+  /* ---------- pétalos que caen ---------- */
   .cae { position:fixed; top:-20px; width:12px; height:16px; border-radius:50% 50% 45% 45% / 70% 70% 30% 30%;
     background:radial-gradient(ellipse at 50% 30%, #fff08a, var(--amarillo) 55%, var(--amarillo2));
     z-index:3; pointer-events:none; animation:caer var(--t) linear forwards; }
   @keyframes caer { to { transform:translate(var(--dx), 110vh) rotate(720deg); opacity:.5; } }
+
+  /* ---------- mariposas ---------- */
+  .mariposas { position:fixed; inset:0; z-index:4; pointer-events:none; overflow:hidden; }
+  .mariposa { position:absolute; top:0; left:0; width:var(--sz); height:var(--sz); pointer-events:none;
+    will-change:transform; transition:opacity .6s; }
+  .mariposa svg, .mariposa-posada svg { display:block; width:100%; height:100%; overflow:visible; }
+  .ala { transform-box:fill-box; transform-origin:center; animation:aletear .25s ease-in-out infinite; }
+  .ala.inf { animation-delay:-.06s; }
+  @keyframes aletear { 0%,100% { transform:scaleX(1); } 50% { transform:scaleX(.2); } }
+  .mariposa-posada { position:absolute; top:0; left:0; width:38px; height:38px; z-index:60; opacity:0;
+    pointer-events:none; }
+  .mariposa-posada.lenta .ala { animation-duration:.9s; }
+  body[data-p="3"] .mariposa.m1 { opacity:0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mariposa { animation:none !important; transform:translate(var(--sx), var(--sy)); }
+    .ala { animation:none !important; }
+    .mariposa-posada { opacity:1; }
+  }
 </style>
 </head>
 <body>
@@ -151,22 +252,83 @@
   <div class="sol"></div>
   <div class="pasto"></div>
 
-  <section class="inicio" id="inicio">
+  <!-- Mariposas (se generan por JS) -->
+  <div class="mariposas" id="mariposas" aria-hidden="true"></div>
+
+  <!-- ============ 1 · PORTADA ============ -->
+  <section class="pantalla activa" id="p1">
+    <h1 class="titulo">Para <span class="nombre"></span></h1>
+    <p class="sub">Feliz día de la primavera 🌼</p>
     <div class="regalo">🎁</div>
-    <h1>Feliz día de la primavera</h1>
-    <button id="abrir">Tengo un regalo para vos 💕<small>Hace Clik</small></button>
+    <button id="abrir">Tengo un regalo para vos 💛</button>
   </section>
 
-  <div class="frase" id="frase">
-    <h2>Para que en esta primavera<br>no seas espectadora<br>y tengas tus flores amarillas 🌼</h2>
-    <p>✨ ¡¡Feliz Primavera!! ✨</p>
-  </div>
+  <!-- ============ 2 · SOBRE Y CARTA ============ -->
+  <section class="pantalla" id="p2">
+    <div class="p2-sobre" id="p2sobre">
+      <h2 class="titulo txt">Tenés un mensaje 💌</h2>
+      <div class="sobre-wrap" id="sobreWrap" role="button" tabindex="0" aria-label="Abrir el sobre">
+        <div class="sobre" id="sobre">
+          <svg class="s-fondo" viewBox="0 0 300 200" preserveAspectRatio="none">
+            <rect x="1" y="1" width="298" height="198" rx="8" fill="#fbeece" stroke="#a893ff" stroke-width="2"/>
+          </svg>
+          <div class="carta-mini" id="cartaMini"></div>
+          <svg class="s-frente" viewBox="0 0 300 200" preserveAspectRatio="none">
+            <polygon points="1,1 150,110 1,199" fill="#f5dfae" stroke="#a893ff" stroke-width="1.6" stroke-linejoin="round"/>
+            <polygon points="299,1 150,110 299,199" fill="#f5dfae" stroke="#a893ff" stroke-width="1.6" stroke-linejoin="round"/>
+            <polygon points="1,199 150,96 299,199" fill="#fbeece" stroke="#a893ff" stroke-width="1.6" stroke-linejoin="round"/>
+            <rect x="1" y="1" width="298" height="198" rx="8" fill="none" stroke="#a893ff" stroke-width="2"/>
+          </svg>
+          <div class="solapa">
+            <svg viewBox="0 0 300 115" preserveAspectRatio="none">
+              <polygon points="1,1 299,1 150,114" fill="#f7e2b0" stroke="#a893ff" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="sello">
+            <svg viewBox="-50 -50 100 100">
+              <circle r="46" fill="#ffd21f" stroke="#c98400" stroke-width="4"/>
+              <circle r="36" fill="none" stroke="#ffab00" stroke-width="2" stroke-dasharray="3 4"/>
+              <path d="M0,20 C-32,-2 -24,-28 -9,-24 C-3,-22 0,-16 0,-13 C0,-16 3,-22 9,-24 C24,-28 32,-2 0,20Z" fill="#c98400"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <p class="hint txt">Tocá el sobre para abrirlo</p>
+    </div>
 
-  <div class="ramo" id="ramo"></div>
+    <div class="p2-carta">
+      <article class="carta-g" id="cartaG"></article>
+      <button class="diferido" id="verFlores">Ver tus flores 🌼</button>
+    </div>
+  </section>
 
-  <div class="botones" id="botones">
-    <button class="otra cancion" id="cancion">🎶 Tu canción<small>Hace Clik</small></button>
-  </div>
+  <!-- ============ 3 · EL RAMO ============ -->
+  <section class="pantalla" id="p3">
+    <div class="p3-titulo"><h2 class="titulo">Tus flores amarillas, <span class="nombre"></span> 🌼</h2></div>
+    <div class="ramo" id="ramo"></div>
+    <div class="p3-pie"><button class="diferido" id="ultima">Una última cosa... ✨</button></div>
+  </section>
+
+  <!-- ============ 4 · FINAL CON FOTO ============ -->
+  <section class="pantalla" id="p4">
+    <div class="polaroid">
+      <div class="foto" id="foto">
+        <img src="karo.jpg" alt="Foto de Karo" onerror="this.parentNode.classList.add('sin')">
+        <div class="ph">Tu foto acá 📷</div>
+      </div>
+      <div class="pie-polaroid"><span class="nombre"></span>&nbsp;🌼</div>
+      <div class="florcita a"></div><div class="florcita b"></div><div class="florcita c"></div>
+    </div>
+    <p class="frase">Para que en esta primavera no seas espectadora y tengas tus flores amarillas 🌼</p>
+    <div class="botones">
+      <button class="otra cancion" id="cancion">🎶 Tu canción<small>Hace Clik</small></button>
+      <button class="otra lila" id="denuevo">Ver de nuevo 🌼</button>
+    </div>
+    <footer class="firma">
+      <p>Es algo distinto, pero lo hice con mucho cariño para vos 💛</p>
+      <span>By: NkoCussi</span>
+    </footer>
+  </section>
 
   <div class="hoja-video" id="hojaVideo">
     <div class="tarjeta">
@@ -178,15 +340,41 @@
     </div>
   </div>
 
-  <footer class="firma" id="firma">
-    <p>Es algo distinto, pero lo hice con mucho cariño para vos 💛</p>
-    <span>by: NkoCussi</span>
-  </footer>
-
 <script>
-  const ramo = document.getElementById('ramo');
-  const frase = document.getElementById('frase');
-  let lluvia;
+  // ---- nombre (para cambiarlo: ?para=Nombre en la URL, o editá esta constante) ----
+  const NOMBRE_DEFECTO = 'Karo';
+
+  // ✏️ EDITÁ LA CARTA ACÁ (una línea = un párrafo)
+  const CARTA = `Hoy es 21 de septiembre y todo el mundo habla de flores amarillas.
+Yo no quería que te quedaras mirando desde afuera, así que te hice las tuyas.
+No son de verdad, pero tienen algo que las de verdad no tienen: las hice pensando en vos, una por una.
+Que esta primavera te traiga cosas lindas, risas largas y días con sol.
+Te las regalo con todo mi cariño.`;
+  const FIRMA_CARTA = 'Con cariño, Nico';
+
+  // ---- canción (para cambiar el video, reemplazá solo este ID) ----
+  const VIDEO_ID = 'hYO4eZqREvE';
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function nombreDeLaURL() {
+    const m = location.search.match(/[?&]para=([^&]*)/);
+    if (!m) return null;
+    let v;
+    try { v = decodeURIComponent(m[1].replace(/\+/g, ' ')); } catch (e) { v = m[1]; }
+    v = v.trim().slice(0, 40);
+    return v || null;
+  }
+  const NOMBRE = nombreDeLaURL() || NOMBRE_DEFECTO;
+  document.title = `Para ${NOMBRE} 🌼`;
+  document.querySelectorAll('.nombre').forEach(el => el.innerHTML = esc(NOMBRE));
+
+  document.getElementById('cartaG').innerHTML =
+    `<h3>Para ${esc(NOMBRE)} 🌼</h3>` +
+    CARTA.split('\n').map(l => l.trim()).filter(Boolean).map(l => `<p>${esc(l)}</p>`).join('') +
+    `<p class="fir">${esc(FIRMA_CARTA)}</p>`;
+
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---- dibujo de una flor (se genera una vez) ----
   function cabezaSVG() {
@@ -207,6 +395,7 @@
     return s + '</svg>';
   }
   const CABEZA = cabezaSVG();
+  document.querySelectorAll('.florcita').forEach(el => el.innerHTML = CABEZA);
 
   const PAPEL_ATRAS = `<svg class="papel-atras" viewBox="0 0 200 120" preserveAspectRatio="none">
     <defs><linearGradient id="gpa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe4ff"/><stop offset="1" stop-color="#cbb5f7"/></linearGradient></defs>
@@ -246,7 +435,9 @@
     { a:-26, h:.41, s:.92, d:1.45 }, { a:25, h:.40, s:.92, d:1.5 },
     { a:-5,  h:.39, s:1.05, d:1.55 }
   ];
+  const FLOR_POSADA = 7; // flor donde se posa la mariposa
 
+  const ramo = document.getElementById('ramo');
   function armarRamo() {
     let html = PAPEL_ATRAS;
     flores.forEach((f, i) => {
@@ -263,6 +454,8 @@
     ramo.innerHTML = html;
   }
 
+  // ---- pétalos que caen ----
+  let lluvia = null;
   function petaloCae() {
     const p = document.createElement('div');
     p.className = 'cae';
@@ -274,21 +467,220 @@
     setTimeout(() => p.remove(), 9500);
   }
 
-  function mostrar() {
-    document.getElementById('inicio').classList.add('oculto');
-    const firma = document.getElementById('firma');
-    const botones = document.getElementById('botones');
-    frase.classList.remove('ver'); firma.classList.remove('ver'); botones.classList.remove('ver');
-    ramo.classList.remove('ver'); void ramo.offsetWidth;
-    armarRamo();
-    ramo.classList.add('ver');
-    setTimeout(() => { frase.classList.add('ver'); firma.classList.add('ver'); botones.classList.add('ver'); }, 3600);
-    clearInterval(lluvia);
-    lluvia = setInterval(petaloCae, 450);
+  // ---- mariposas ----
+  let mid = 0;
+  function mariposaSVG(c1, c2, borde) {
+    const id = 'gm' + (mid++);
+    const fill = `fill="url(#${id})" stroke="${borde}" stroke-width=".8" stroke-linejoin="round"`;
+    return `<svg viewBox="0 0 60 60">
+      <defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="60" y2="60">
+        <stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>
+      <g class="ala inf">
+        <path d="M29,30 C20,30 8,36 12,47 C16,55 27,46 29,35Z" ${fill}/>
+        <path d="M31,30 C40,30 52,36 48,47 C44,55 33,46 31,35Z" ${fill}/>
+      </g>
+      <g class="ala sup">
+        <path d="M29,27 C22,6 3,5 4,19 C5,29 19,33 29,28Z" ${fill}/>
+        <path d="M31,27 C38,6 57,5 56,19 C55,29 41,33 31,28Z" ${fill}/>
+      </g>
+      <ellipse cx="30" cy="30" rx="1.8" ry="11" fill="#3b2a14"/>
+      <path d="M30,20 Q27,11 23,9 M30,20 Q33,11 37,9" stroke="#3b2a14" stroke-width=".9" fill="none" stroke-linecap="round"/>
+    </svg>`;
+  }
+  const COLORES = [
+    ['#ffe45c', '#ffab00', '#b87400'],   // amarilla
+    ['#cdbcff', '#7b61ff', '#4b36b5'],   // lila
+    ['#a6ece5', '#3cc4bd', '#1b7f7a'],   // turquesa suave
+    ['#fff08a', '#f5a800', '#a86b00']    // dorada
+  ];
+  // trayectorias (vw, vh) cerradas; dur en s, delay negativo para que arranquen en fases distintas
+  const VUELOS = [
+    { sz:34, dur:18, delay:0,   pts:[[8,70],[30,45],[55,60],[80,30],[70,12],[45,25],[20,18],[6,40]] },
+    { sz:40, dur:22, delay:-7,  pts:[[85,20],[60,35],[38,72],[15,58],[25,30],[50,10],[75,45]] },
+    { sz:28, dur:14, delay:-3,  pts:[[50,80],[75,62],[88,40],[62,48],[40,30],[22,50],[30,72]] },
+    { sz:36, dur:24, delay:-12, pts:[[15,15],[40,40],[65,20],[90,55],[70,80],[45,62],[20,82],[5,50]] }
+  ];
+  // spline Catmull-Rom cerrada -> lista densa de puntos
+  function curva(pts, pasos) {
+    const n = pts.length, out = [];
+    for (let i = 0; i < n; i++) {
+      const p0 = pts[(i+n-1)%n], p1 = pts[i], p2 = pts[(i+1)%n], p3 = pts[(i+2)%n];
+      for (let k = 0; k < pasos; k++) {
+        const t = k / pasos, t2 = t*t, t3 = t2*t;
+        out.push([0,1].map(c => 0.5 * ((2*p1[c]) + (-p0[c]+p2[c])*t + (2*p0[c]-5*p1[c]+4*p2[c]-p3[c])*t2 + (-p0[c]+3*p1[c]-3*p2[c]+p3[c])*t3)));
+      }
+    }
+    return out;
+  }
+  function armarMariposas() {
+    const cont = document.getElementById('mariposas');
+    let css = '';
+    VUELOS.forEach((v, i) => {
+      const puerto = curva(v.pts, 14), n = puerto.length;
+      let kf = '';
+      for (let j = 0; j <= n; j++) {
+        const a = puerto[j % n], b = puerto[(j+1) % n];
+        const dx = b[0] - a[0], dy = b[1] - a[1];
+        const rot = (28 * dx / (Math.hypot(dx, dy) || 1)).toFixed(1); // leve inclinación según la dirección
+        kf += `${(j / n * 100).toFixed(2)}%{transform:translate(${a[0].toFixed(2)}vw,${a[1].toFixed(2)}vh) rotate(${rot}deg)}`;
+      }
+      css += `@keyframes vuelo${i}{${kf}}`;
+      const c = COLORES[i];
+      const m = document.createElement('div');
+      m.className = 'mariposa m' + (i+1);
+      m.style.cssText = `--sz:${v.sz}px;--sx:${v.pts[0][0]}vw;--sy:${v.pts[0][1]}vh;` +
+        `animation:vuelo${i} ${v.dur}s linear ${v.delay}s infinite`;
+      m.innerHTML = mariposaSVG(c[0], c[1], c[2]);
+      cont.appendChild(m);
+    });
+    const st = document.createElement('style');
+    st.textContent = css;
+    document.head.appendChild(st);
+  }
+  armarMariposas();
+
+  // mariposa que se posa sobre una flor del ramo (pantalla 3)
+  let posada = null, animPosada = null, tPosada = [];
+  function ponerPosada() {
+    const W = ramo.clientWidth, H = ramo.clientHeight, f = flores[FLOR_POSADA];
+    const ang = f.a * Math.PI / 180;
+    const x = W/2 + Math.sin(ang) * f.h * H;
+    const y = H - (.2 * H + Math.cos(ang) * f.h * H);
+    const c = COLORES[0];
+    posada = document.createElement('div');
+    posada.className = 'mariposa-posada';
+    posada.innerHTML = mariposaSVG(c[0], c[1], c[2]);
+    ramo.appendChild(posada);
+    const P = (dx, dy, r) => `translate(${(x - 19 + dx).toFixed(1)}px, ${(y - 19 + dy).toFixed(1)}px) rotate(${r}deg)`;
+    if (reducido) { posada.style.transform = P(0, 0, 0); return; }
+    const pasos = [ // [offset, dx, dy, rot, opacidad]
+      [0,   -(x+50), -80,     80, 0],
+      [.04, -(x+30), -70,     80, 1],
+      [.14, -W*.30,  -90,     60, 1],
+      [.22, -60,     -50,     30, 1],
+      [.30, 0,        0,       0, 1],
+      [.66, 0,        0,       0, 1],
+      [.74, 30,      -40,     25, 1],
+      [.86, W*.35,   -130,    55, 1],
+      [1,   W*.7,    -260,    60, 0]
+    ];
+    const DUR = 12000;
+    const ciclo = () => {
+      if (!posada) return;
+      animPosada = posada.animate(pasos.map(p => ({ offset:p[0], transform:P(p[1], p[2], p[3]), opacity:p[4], easing:'ease-in-out' })),
+        { duration:DUR, fill:'forwards' });
+      tPosada.push(setTimeout(() => posada && posada.classList.add('lenta'), DUR * .30));
+      tPosada.push(setTimeout(() => posada && posada.classList.remove('lenta'), DUR * .66));
+      tPosada.push(setTimeout(ciclo, DUR + 3000));
+    };
+    ciclo();
+  }
+  function quitarPosada() {
+    tPosada.forEach(clearTimeout); tPosada = [];
+    if (animPosada) animPosada.cancel();
+    animPosada = null; posada = null;
   }
 
-  // ---- canción (para cambiar el video, reemplazá solo este ID) ----
-  const VIDEO_ID = 'hYO4eZqREvE';
+  // ---- temporizadores por pantalla ----
+  let t2 = [], t3 = [], tLimpiar = null;
+  const later = (arr, fn, ms) => arr.push(setTimeout(fn, ms));
+  const clearAll = arr => { arr.forEach(clearTimeout); arr.length = 0; };
+
+  // ---- navegación ----
+  const pantallas = [...document.querySelectorAll('.pantalla')];
+  let actual = 1;
+  function ir(n) {
+    const previa = actual;
+    if (previa === 3 && n !== 3) salir3();
+    actual = n;
+    pantallas.forEach((p, i) => p.classList.toggle('activa', i === n - 1));
+    document.body.dataset.p = n;
+    if (n === 3) entrar3();
+    if (n === 3 || n === 4) { if (!lluvia) lluvia = setInterval(petaloCae, 450); }
+    else { clearInterval(lluvia); lluvia = null; }
+  }
+
+  // ---- pantalla 2: sobre ----
+  const sobre = document.getElementById('sobre');
+  const sobreWrap = document.getElementById('sobreWrap');
+  const p2sobre = document.getElementById('p2sobre');
+  const cartaMini = document.getElementById('cartaMini');
+  const cartaG = document.getElementById('cartaG');
+  const verFlores = document.getElementById('verFlores');
+  let abierto = false;
+
+  function abrirSobre() {
+    if (abierto) return;
+    abierto = true;
+    sobreWrap.classList.add('quieto');
+    p2sobre.classList.add('abriendo');
+    sobre.classList.add('abierto');                       // 1) la solapa se abre
+    later(t2, () => sobre.classList.add('sale'), 500);    // 2) la carta sale del sobre
+    later(t2, agrandarCarta, 1500);                       // 3) la carta se agranda
+  }
+  function agrandarCarta() {
+    const r = cartaMini.getBoundingClientRect();
+    cartaG.style.transition = 'none';
+    cartaG.style.transform = 'none';
+    cartaG.scrollTop = 0;
+    const b = cartaG.getBoundingClientRect();
+    const sc = r.width / b.width;
+    const dx = (r.left + r.width / 2) - (b.left + b.width / 2);
+    const dy = (r.top + r.height / 2) - (b.top + b.height / 2);
+    cartaG.style.transform = `translate(${dx}px, ${dy}px) scale(${sc})`;
+    cartaG.style.opacity = 1;
+    cartaG.style.visibility = 'visible';
+    cartaMini.style.opacity = 0;
+    void cartaG.offsetWidth;
+    cartaG.style.transition = 'transform .8s cubic-bezier(.2,.8,.2,1)';
+    cartaG.style.transform = 'none';
+    p2sobre.classList.add('fuera');
+    later(t2, () => verFlores.classList.add('ver'), 1100);
+  }
+  function resetSobre() {
+    clearAll(t2);
+    abierto = false;
+    sobre.classList.remove('abierto', 'sale');
+    sobreWrap.classList.remove('quieto');
+    p2sobre.classList.remove('abriendo', 'fuera');
+    cartaMini.style.opacity = '';
+    cartaG.removeAttribute('style');
+    verFlores.classList.remove('ver');
+  }
+  sobreWrap.addEventListener('click', abrirSobre);
+  sobreWrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirSobre(); } });
+
+  // ---- pantalla 3: ramo ----
+  const ultima = document.getElementById('ultima');
+  function entrar3() {
+    clearTimeout(tLimpiar);
+    clearAll(t3); quitarPosada();
+    ultima.classList.remove('ver');
+    armarRamo();
+    later(t3, () => ultima.classList.add('ver'), 4000);
+    later(t3, ponerPosada, reducido ? 100 : 4500);
+  }
+  function salir3() {
+    clearAll(t3); quitarPosada();
+    tLimpiar = setTimeout(() => { ramo.innerHTML = ''; ultima.classList.remove('ver'); }, 700);
+  }
+
+  function resetTodo() {
+    resetSobre();
+    ir(1);
+  }
+
+  // ---- botones ----
+  document.getElementById('abrir').onclick = () => ir(2);
+  verFlores.onclick = () => ir(3);
+  ultima.onclick = () => ir(4);
+  document.getElementById('denuevo').onclick = resetTodo;
+
+  // ---- foto: si ya falló antes de engancharse el listener ----
+  const img = document.querySelector('#foto img');
+  if (img.complete && img.naturalWidth === 0) img.parentNode.classList.add('sin');
+
+  // ---- canción ----
   const hojaVideo = document.getElementById('hojaVideo');
   const yt = document.getElementById('yt');
   document.getElementById('cancion').onclick = () => {
@@ -299,7 +691,7 @@
   document.getElementById('cerrar').onclick = cerrarVideo;
   hojaVideo.onclick = e => { if (e.target === hojaVideo) cerrarVideo(); };
 
-  document.getElementById('abrir').onclick = mostrar;
+  document.body.dataset.p = 1;
 </script>
 </body>
 </html>
