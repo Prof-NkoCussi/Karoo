@@ -111,7 +111,7 @@
   /* ---------- 3 · Ramo ---------- */
   .p3-titulo { position:absolute; top:0; left:0; right:0; z-index:8; text-align:center; padding:4vh 18px 0;
     pointer-events:none; }
-  .p3-titulo h2 { font-size:clamp(1.7rem, 7.5vw, 2.7rem); }
+  .p3-titulo h2 { font-size:clamp(1.3rem, 5.8vw, 2.2rem); }
   .p3-pie { position:absolute; left:0; right:0; bottom:calc(2vh + env(safe-area-inset-bottom)); z-index:8;
     display:flex; justify-content:center; }
 
@@ -177,8 +177,8 @@
   .florcita.a { top:-5%; left:-6%; transform:rotate(-15deg); }
   .florcita.b { top:-4%; right:-5%; transform:rotate(25deg); }
   .florcita.c { bottom:9%; right:-6%; transform:rotate(60deg); }
-  #p4 .frase { font-family:'Dancing Script', cursive; font-weight:700; font-size:clamp(1.4rem, 6vw, 2rem);
-    line-height:1.3; color:#5a3f00; max-width:22em; text-shadow:0 2px 12px rgba(255,255,255,.95); }
+  #p4 .frase { font-family:'Dancing Script', cursive; font-weight:700; font-size:clamp(1.05rem, 4.7vw, 1.5rem);
+    line-height:1.3; color:#5a3f00; max-width:26em; text-shadow:0 2px 12px rgba(255,255,255,.95); }
   .botones { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   .firma { position:absolute; left:0; right:0; bottom:0; text-align:center;
     padding:12px 16px calc(6px + env(safe-area-inset-bottom));
@@ -236,6 +236,8 @@
     </defs>
   </svg>
 
+  <audio id="audio" src="audio.mp3" loop preload="auto"></audio>
+
   <div class="sol"></div>
   <div class="pasto"></div>
 
@@ -247,7 +249,7 @@
     <h1 class="titulo">Para <span class="nombre"></span></h1>
     <p class="sub">Feliz día de la primavera 🌼</p>
     <div class="regalo">🎁</div>
-    <button id="abrir">Tengo un regalo para vos 💛</button>
+    <button id="abrir">Tengo un regalo para vos 💛<small>Hace Click</small></button>
   </section>
 
   <!-- ============ 2 · SOBRE Y CARTA ============ -->
@@ -285,30 +287,31 @@
 
     <div class="p2-carta">
       <article class="carta-g" id="cartaG"></article>
-      <button class="diferido" id="verFlores">Ver tus flores 🌼</button>
+      <button class="diferido" id="verFlores">Ver tus flores 🌼<small>Hace Click</small></button>
     </div>
   </section>
 
   <!-- ============ 3 · EL RAMO ============ -->
-  <section class="pantalla" id="p3">
-    <div class="p3-titulo"><h2 class="titulo">Tus flores amarillas, <span class="nombre"></span> 🌼</h2></div>
+  <section class="pantalla" id="p3"> <br>
+    <br>
+    <div class="p3-titulo"><h2 class="titulo">Cada flor es un pequeño recordatorio de lo especial que eres para mi 💕</h2></div>
     <div class="ramo" id="ramo"></div>
-    <div class="p3-pie"><button class="diferido naranja" id="ultima">Una última cosa... ✨</button></div>
+    <div class="p3-pie"><button class="diferido naranja" id="ultima">Una última cosa... ✨<small>Hace Click</small></button></div>
   </section>
 
   <!-- ============ 4 · FINAL CON FOTO ============ -->
   <section class="pantalla" id="p4">
     <div class="polaroid">
       <div class="foto" id="foto">
-        <img src="karo.jpg" alt="Foto de Karo" onerror="this.parentNode.classList.add('sin')">
+        <img src="karoynko.jpg" alt="Foto de Karo" onerror="this.parentNode.classList.add('sin')">
         <div class="ph">Tu foto acá 📷</div>
       </div>
       <div class="pie-polaroid">Te extraño siempre 🥺</div>
       <div class="florcita a"></div><div class="florcita b"></div><div class="florcita c"></div>
     </div>
-    <p class="frase">Para que en esta primavera no seas espectadora y tengas tus flores amarillas 🌼</p>
+    <p class="frase">A veces son las risas, los pequeños detalles o simplemente compartir un momento juntos. Cada recuerdo contigo lo guardo con mucho cariño en mi corazón, porque, al final, son esos pequeños momentos los que se convierten en los recuerdos más grandes y especiales, esos que uno guarda para siempre.</p>
     <div class="botones">
-      <button class="otra lila" id="denuevo">Ver de nuevo 🌼</button>
+      <button class="otra lila" id="denuevo">Ver de nuevo 🌼<small>Hace Click</small></button>
     </div>
     <footer class="firma">
       <span>By: NkoCussi</span>
@@ -643,7 +646,9 @@ Te las regalo con todo mi cariño.`;
   }
 
   // ---- botones ----
-  document.getElementById('abrir').onclick = () => ir(2);
+  // música de fondo: arranca al tocar "Tengo un regalo para vos" y sigue en loop
+  const audio = document.getElementById('audio');
+  document.getElementById('abrir').onclick = () => { audio.play().catch(() => {}); ir(2); };
   verFlores.onclick = () => ir(3);
   ultima.onclick = () => ir(4);
   document.getElementById('denuevo').onclick = resetTodo;
