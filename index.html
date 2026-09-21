@@ -36,10 +36,9 @@
   button:active { transform:translateY(4px); box-shadow:0 2px 0 #c98400; }
   button small { display:block; font-size:.65em; font-weight:500; opacity:.85; margin-top:2px; }
   .otra { font-size:.9rem; padding:9px 18px; }
-  .cancion { color:#fff; background:linear-gradient(135deg, #ffa040, #ff7a00);
-    box-shadow:0 5px 0 #c25b00, 0 8px 20px rgba(255,122,0,.4); animation:pulso 1.8s ease-in-out infinite; }
-  .cancion:active { box-shadow:0 2px 0 #c25b00; }
-  @keyframes pulso { 50% { transform:scale(1.06); } }
+  .naranja { color:#fff; background:linear-gradient(135deg, #ffa24c, #ff7a1a);
+    box-shadow:0 6px 0 #d45f0a, 0 10px 25px rgba(255,122,26,.4); }
+  .naranja:active { box-shadow:0 2px 0 #d45f0a; }
   .lila { color:#fff; background:linear-gradient(135deg, #9b86ff, var(--violeta));
     box-shadow:0 5px 0 #5540d1, 0 8px 20px rgba(123,97,255,.4); }
   .lila:active { box-shadow:0 2px 0 #5540d1; }
@@ -152,7 +151,7 @@
 
   /* ---------- 4 · Final con foto ---------- */
   #p4 { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
-    padding:16px 16px 88px; text-align:center; }
+    padding:16px 16px 52px; text-align:center; }
   .polaroid { --pw:min(70vw, 300px, 36dvh); position:relative; width:var(--pw); flex:none;
     padding:4.5% 4.5% 0; background:#fff; border-radius:3px; transform:rotate(-3deg);
     box-shadow:0 14px 30px rgba(60,40,0,.3), 0 2px 6px rgba(0,0,0,.15); }
@@ -170,7 +169,8 @@
   .foto.sin img { display:none; }
   .foto.sin .ph { display:flex; }
   .pie-polaroid { min-height:calc(var(--pw) * .22); display:flex; align-items:center; justify-content:center;
-    font-family:'Dancing Script', cursive; font-weight:700; font-size:clamp(1.6rem, 7vw, 2.1rem); color:#5a3f00; }
+    font-family:'Dancing Script', cursive; font-weight:700; font-size:clamp(1.15rem, 5.4vw, 1.7rem); color:#5a3f00;
+    white-space:nowrap; text-align:center; }
   .florcita { position:absolute; width:calc(var(--pw) * .17); height:calc(var(--pw) * .17); z-index:2;
     filter:drop-shadow(0 2px 3px rgba(120,70,0,.35)); }
   .florcita svg { width:100%; height:100%; display:block; }
@@ -181,23 +181,10 @@
     line-height:1.3; color:#5a3f00; max-width:22em; text-shadow:0 2px 12px rgba(255,255,255,.95); }
   .botones { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   .firma { position:absolute; left:0; right:0; bottom:0; text-align:center;
-    padding:22px 16px calc(10px + env(safe-area-inset-bottom));
+    padding:12px 16px calc(6px + env(safe-area-inset-bottom));
     background:linear-gradient(180deg, rgba(79,158,58,0), rgba(46,110,34,.85) 45%); color:#fffbe6; pointer-events:none; }
-  .firma p { font-size:clamp(.9rem, 3.7vw, 1.1rem); font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,.35); }
-  .firma span { display:block; margin-top:3px; font-size:.8rem; letter-spacing:1px; font-weight:700; color:#f8e48d; }
-
-  /* ---------- ventana del video ---------- */
-  .hoja-video { position:fixed; inset:0; z-index:20; display:flex; align-items:center; justify-content:center;
-    padding:16px; background:rgba(40,25,70,.45); opacity:0; pointer-events:none; transition:opacity .4s; }
-  .hoja-video.abierta { opacity:1; pointer-events:auto; }
-  .tarjeta { width:min(100%, 560px); background:#f6f0ff; border-radius:20px; overflow:hidden;
-    box-shadow:0 20px 50px rgba(60,30,120,.4); transform:translateY(40px) scale(.95); transition:transform .4s; }
-  .hoja-video.abierta .tarjeta { transform:none; }
-  .cabecera { display:flex; align-items:center; justify-content:flex-end; padding:10px 12px;
-    font-style:italic; font-weight:700; color:#5540d1; }
-  .cerrar { padding:6px 12px; font-size:1rem; color:#fff; background:#7b61ff; box-shadow:none; border-radius:999px; }
-  .video { position:relative; aspect-ratio:16 / 9; background:#000; }
-  .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .firma span { display:block; font-size:.7rem; letter-spacing:1px; font-weight:700; color:#f8e48d;
+    text-shadow:0 1px 4px rgba(0,0,0,.35); }
 
   /* ---------- pétalos que caen ---------- */
   .cae { position:fixed; top:-20px; width:12px; height:16px; border-radius:50% 50% 45% 45% / 70% 70% 30% 30%;
@@ -306,7 +293,7 @@
   <section class="pantalla" id="p3">
     <div class="p3-titulo"><h2 class="titulo">Tus flores amarillas, <span class="nombre"></span> 🌼</h2></div>
     <div class="ramo" id="ramo"></div>
-    <div class="p3-pie"><button class="diferido" id="ultima">Una última cosa... ✨</button></div>
+    <div class="p3-pie"><button class="diferido naranja" id="ultima">Una última cosa... ✨</button></div>
   </section>
 
   <!-- ============ 4 · FINAL CON FOTO ============ -->
@@ -316,29 +303,17 @@
         <img src="karo.jpg" alt="Foto de Karo" onerror="this.parentNode.classList.add('sin')">
         <div class="ph">Tu foto acá 📷</div>
       </div>
-      <div class="pie-polaroid"><span class="nombre"></span>&nbsp;🌼</div>
+      <div class="pie-polaroid">Te extraño siempre 🥺</div>
       <div class="florcita a"></div><div class="florcita b"></div><div class="florcita c"></div>
     </div>
     <p class="frase">Para que en esta primavera no seas espectadora y tengas tus flores amarillas 🌼</p>
     <div class="botones">
-      <button class="otra cancion" id="cancion">🎶 Tu canción<small>Hace Clik</small></button>
       <button class="otra lila" id="denuevo">Ver de nuevo 🌼</button>
     </div>
     <footer class="firma">
-      <p>Es algo distinto, pero lo hice con mucho cariño para vos 💛</p>
       <span>By: NkoCussi</span>
     </footer>
   </section>
-
-  <div class="hoja-video" id="hojaVideo">
-    <div class="tarjeta">
-      <div class="cabecera">
-        <button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button>
-      </div>
-      <div class="video"><iframe id="yt" title="Flores amarillas" allow="autoplay; encrypted-media; picture-in-picture"
-        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
-    </div>
-  </div>
 
 <script>
   // ---- nombre (para cambiarlo: ?para=Nombre en la URL, o editá esta constante) ----
@@ -351,9 +326,6 @@ No son de verdad, pero tienen algo que las de verdad no tienen: las hice pensand
 Que esta primavera te traiga cosas lindas, risas largas y días con sol.
 Te las regalo con todo mi cariño.`;
   const FIRMA_CARTA = 'Con cariño, Nico';
-
-  // ---- canción (para cambiar el video, reemplazá solo este ID) ----
-  const VIDEO_ID = 'hYO4eZqREvE';
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -679,17 +651,6 @@ Te las regalo con todo mi cariño.`;
   // ---- foto: si ya falló antes de engancharse el listener ----
   const img = document.querySelector('#foto img');
   if (img.complete && img.naturalWidth === 0) img.parentNode.classList.add('sin');
-
-  // ---- canción ----
-  const hojaVideo = document.getElementById('hojaVideo');
-  const yt = document.getElementById('yt');
-  document.getElementById('cancion').onclick = () => {
-    yt.src = `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0&playsinline=1`;
-    hojaVideo.classList.add('abierta');
-  };
-  function cerrarVideo() { hojaVideo.classList.remove('abierta'); setTimeout(() => yt.src = '', 400); }
-  document.getElementById('cerrar').onclick = cerrarVideo;
-  hojaVideo.onclick = e => { if (e.target === hojaVideo) cerrarVideo(); };
 
   document.body.dataset.p = 1;
 </script>
